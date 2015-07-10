@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.v4java.lal.dao.AdminRoleDao" >
+
+  <resultMap id="admin_roleResultMap" type="com.v4java.lal.pojo.AdminRole" >
+  <!--角色表 start  -->
+    <id 	column="id" 			property="id" 			jdbcType="INTEGER" />
+    <result column="name" 			property="name" 		jdbcType="VARCHAR" />
+    <result column="is_admin" 		property="isAdmin" 		jdbcType="INTEGER" />
+    <result column="is_delete" 		property="isDelete" 	jdbcType="INTEGER" />
+    <result column="create_time" 	property="createTime" 	jdbcType="TIMESTAMP" />
+    <!--  -->
+    <result column="update_time" 	property="updateTime" 	jdbcType="TIMESTAMP" />
+    <!-- 角色表 end -->
+  </resultMap>
+  
+  <sql id="all_Column_List" >
+    id, name, is_admin, is_delete, create_time, update_time
+  </sql>
+  
+  
+ <!-- 插入 insertadmin_role ,会返回主键-->
+   <insert id="insertAdminRoleAnduseGeneratedKeys" parameterType="com.v4java.lal.pojo.AdminRole" >
+    insert into admin_role (
+    	name, is_admin, is_delete, create_time, update_time
+      )
+    values ( 
+    	#{name}, #{isAdmin}, #{isDelete}, now(),now()
+      );
+         <selectKey keyProperty="id" resultType="INTEGER">
+			select LAST_INSERT_ID() 
+		</selectKey>
+  </insert>
+  
+   <!-- 插入 insertadmin_role ,不会返回主键-->
+   <insert id="insertAdminRole" parameterType="com.v4java.lal.pojo.AdminRole" >
+    insert into admin_role (
+    	name, is_admin, is_delete, create_time, update_time
+      )
+    values ( 
+    	#{name}, #{isAdmin}, #{isDelete}, now(),now()
+      )
+  </insert>
+</mapper>

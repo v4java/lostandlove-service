@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.v4java.lal.dao.AdminUserDao" >
+
+  <!-- 管理员表 start -->
+  <resultMap id="admin_user-resultMap" type="adminUser" >
+    <id 	column="id"			 	property="id" 			jdbcType="INTEGER" />
+    <result column="admin_role_id" 	property="adminRoleId" 	jdbcType="INTEGER" />
+    <result column="account" 		property="account" 		jdbcType="VARCHAR" />
+    <result column="password" 		property="password" 	jdbcType="CHAR" />
+    <result column="status" 		property="status" 		jdbcType="INTEGER" />
+    <!--  -->
+    <result column="is_delete" 		property="isDelete" 	jdbcType="INTEGER" />
+    <result column="create_time" 	property="createTime" 	jdbcType="TIMESTAMP" />
+    <result column="update_time" 	property="updateTime" 	jdbcType="TIMESTAMP" />
+  </resultMap>
+  <!--  管理员表 end-->
+  
+  <!-- 管理员表view start -->
+    <resultMap id="admin_user_view-resultMap" type="adminUserVO" >
+    <id 	column="id"			 		property="id" 				jdbcType="INTEGER" />
+    <result column="admin_role_id" 		property="adminRoleId" 		jdbcType="INTEGER" />
+    <result column="admin_role_name" 	property="adminRoleName" 	jdbcType="VARCHAR" />
+    <result column="account" 			property="account" 			jdbcType="VARCHAR" />
+    <result column="password" 			property="password" 		jdbcType="CHAR" />
+    <result column="status" 			property="status" 			jdbcType="INTEGER" />
+    <!--  -->
+    <result column="is_delete" 			property="isDelete" 		jdbcType="INTEGER" />
+    <result column="create_time" 		property="createTime" 		jdbcType="TIMESTAMP" />
+  </resultMap>
+  <!--  管理员表view end-->
+  
+  <sql id="all_Column_List" >
+    id, admin_role_id, account, password, status, is_delete, create_time, update_time
+  </sql>
+  
+  <!-- 插入 insertadmin_user ,会返回主键-->
+    <insert id="insertAdminUserAnduseGeneratedKeys" parameterType="adminUser" >
+    insert into admin_user (
+     admin_role_id, account, password, status, is_delete, 
+  	  create_time, update_time
+  	  )
+    values (
+    	#{adminRoleId}, #{account}, #{password}, #{status}, #{isDelete}, 
+      	now(),now()
+      );
+      	<selectKey keyProperty="id" resultType="INTEGER">
+			select LAST_INSERT_ID() 
+		</selectKey>
+  </insert>
+  
+   <!-- 插入 insertadmin_user ,不会返回主键-->
+    <insert id="insertAdminUser" parameterType="adminUser" >
+    insert into admin_user (
+     admin_role_id, account, password, status, is_delete, 
+  	  create_time, update_time
+  	  )
+    values (
+    	#{adminRoleId}, #{account}, #{password}, #{status}, #{isDelete}, 
+      	now(),now()
+      )
+  </insert>
+  
+  
+  <select id="selectAdminUserVOByAccount" parameterType="string" resultMap="admin_user_view-resultMap">
+	select 
+		au.`id`, au.`admin_role_id`, au.`account`, au.`password`, au.`status`, 
+		au.`is_delete`, au.`create_time`,ar.`name` as `admin_role_name`
+	from 
+		admin_user  au
+	left join
+		admin_role ar  on ar.id = au.admin_role_id
+	where 
+		au.account = #{account} 		
+   </select>
+
+  <select id="selectAdminUserVO" parameterType="adminUserQuery" resultMap="admin_user_view-resultMap">
+	select 
+		au.`id`, au.`admin_role_id`, au.`account`, au.`password`, au.`status`, 
+		au.`is_delete`, au.`create_time`,ar.`name` as `admin_role_name`
+	from 
+		admin_user  au
+	left join
+		admin_role ar  on ar.id = au.admin_role_id
+	<trim prefix="where" prefixOverrides="and">
+		<if test="adminRoleId != null ">
+			au.admin_role_id = #{adminRoleId}
+		</if>
+		<if test="account != null and account !='' ">
+			au.account  like "%"#{account}"%"
+		</if>
+		<if test="status != null ">
+			au.status = 	#{status}
+		</if> 
+		<if test="isDelete != null ">
+			au.isDelete = 	#{isDelete}
+		</if> 	 	 	
+	</trim>
+		<if test="limit != null and offset != null ">
+			limit #{offset},#{limit}
+		</if> 	
+   </select>
+
+
+  <select id="selectAdminUserVOCount" parameterType="adminUserQuery" resultType="java.lang.Integer">
+	select 
+		count(au.`id`)
+	from 
+		admin_user  au
+	left join
+		admin_role ar  on ar.id = au.admin_role_id
+	<trim prefix="where" prefixOverrides="and">
+		<if test="adminRoleId != null ">
+			au.admin_role_id = #{adminRoleId}
+		</if>
+		<if test="account != null and account !='' ">
+			au.account 	like "%"#{account}"%"
+		</if>
+		<if test="status != null ">
+			au.status = 	#{status}
+		</if> 
+		<if test="isDelete != null ">
+			au.isDelete = 	#{isDelete}
+		</if>
+		<if test="createTimeStart !=null and createTimeStart != '' ">
+			au.create_time  >= #{createTimeStart}
+		</if>
+		<if test="createTimeEnd !=null and createTimeEnd != '' ">
+			 #{createTimeEnd} >= au.create_time
+		</if> 	 	 	
+	</trim>
+   </select>
+   
+</mapper>

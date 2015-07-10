@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.v4java.lal.dao.AdminRolePrivilegeDao" >
+
+  <resultMap id="adminRolePrivilege-resultMap" type="adminRolePrivilege" >
+  <!--系统角色权限关联 start  -->
+    <id 	column="id" 				property="id" 				jdbcType="INTEGER" />
+    <result column="admin_role_id" 		property="adminRoleId" 		jdbcType="INTEGER" />
+    <result column="admin_privilege_id" property="adminPrivilegeId" jdbcType="INTEGER" />
+  <!-- 系统角色权限关联 end -->
+  </resultMap>
+
+  <resultMap id="adminPrivilege-resultMap" type="adminPrivilegeVO" >
+  	<!-- 权限表 start -->
+    <id 	column="id" 			property="id" 			jdbcType="INTEGER" />
+    <result column="name" 			property="name" 		jdbcType="VARCHAR" />
+    <result column="parent_id" 		property="parentId" 	jdbcType="INTEGER" />
+    <result column="url" 			property="url" 			jdbcType="VARCHAR" />
+    <result column="is_show" 		property="isShow" 		jdbcType="INTEGER" />
+    <!--  -->
+    <result column="is_delete" 		property="isDelete" 	jdbcType="INTEGER" />
+    <result column="code" 			property="code" 		jdbcType="VARCHAR" />
+    <result column="sort" 			property="sort" 		jdbcType="INTEGER" />
+    <result column="create_time" 	property="createTime" 	jdbcType="TIMESTAMP" />
+    <result column="update_time" 	property="updateTime" 	jdbcType="TIMESTAMP" />
+    <!--  权限表 end -->
+  </resultMap>
+
+
+  
+  <sql id="all_Column_List" >
+    id, admin_role_id, admin_privilege_id
+  </sql>
+
+
+
+	<!--批量添加角色权限对应表  -->
+	<insert id="batchInsertAdminRolePrivilege" parameterType="list">
+		insert into admin_role_privilege(
+			admin_role_id, admin_privilege_id
+		)
+		values 
+		<foreach collection="list" item="item" index="index" separator=","> 
+		     ( #{item.admin_privilege_id},#{item.admin_role_id}) 
+	    </foreach>  
+	</insert>
+	
+	<select id="selectAdminRolePrivilegeByRoleId" parameterType="java.lang.Integer" resultMap="adminPrivilege-resultMap">
+		select ap.NAME, ap.PARENT_ID, ap.URL, ap.IS_SHOW, ap.IS_DELETE, 
+			   ap.CODE, ap.SORT, ap.CREATE_TIME ,ap.ID 
+		from 
+			admin_privilege ap 
+		left join 
+			admin_role_privilege arp  on arp.admin_privilege_id = ap.id 
+		where 			   
+			arp.admin_role_id = #{adminRoleId}	
+	</select>
+</mapper>

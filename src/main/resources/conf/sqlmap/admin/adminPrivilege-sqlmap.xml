@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.v4java.lal.dao.AdminPrivilegeDao" >
+
+  <resultMap id="adminPrivilege-resultMap" type="adminPrivilege" >
+  	<!-- 权限表 start -->
+    <id 	column="id" 			property="id" 			jdbcType="INTEGER" />
+    <result column="name" 			property="name" 		jdbcType="VARCHAR" />
+    <result column="parent_id" 		property="parentId" 	jdbcType="INTEGER" />
+    <result column="url" 			property="url" 			jdbcType="VARCHAR" />
+    <result column="is_show" 		property="isShow" 		jdbcType="INTEGER" />
+    <!--  -->
+    <result column="is_delete" 		property="isDelete" 	jdbcType="INTEGER" />
+    <result column="code" 			property="code" 		jdbcType="VARCHAR" />
+    <result column="sort" 			property="sort" 		jdbcType="INTEGER" />
+    <result column="create_time" 	property="createTime" 	jdbcType="TIMESTAMP" />
+    <result column="update_time" 	property="updateTime" 	jdbcType="TIMESTAMP" />
+    <!--  权限表 end -->
+  </resultMap>
+
+  <sql id="all_Column_List" >
+    NAME, PARENT_ID, URL, IS_SHOW, IS_DELETE, CODE, SORT, CREATE_TIME, UPDATE_TIME
+  </sql>
+  
+	<!-- 插入 AdminPrivilege ,会返回主键-->
+  <insert id="insertAdminPrivilegeAnduseGeneratedKeys" parameterType="com.v4java.lal.pojo.AdminPrivilege" >
+		insert into admin_privilege(
+			NAME, PARENT_ID, URL, IS_SHOW, CODE, SORT, CREATE_TIME, UPDATE_TIME
+		)
+		values(#{name},#{parentId},#{url},#{isShow},#{code},#{sort},now(),now());
+		<selectKey keyProperty="id" resultType="INTEGER">
+			select LAST_INSERT_ID() 
+		</selectKey>
+  </insert>
+  	<!-- 插入 AdminPrivilege ,不会返回主键-->
+  <insert id="insertAdminPrivilege" parameterType="com.v4java.lal.pojo.AdminPrivilege">
+		insert into admin_privilege(
+			NAME, PARENT_ID, URL, IS_SHOW, CODE, SORT, CREATE_TIME, UPDATE_TIME
+		)
+		values(#{name},#{parentId},#{url},#{isShow},#{code},#{sort},now(),now());
+  </insert>
+  
+  
+	<!-- 批量插入插入 AdminPrivilege,初始化数据时使用-->
+   <insert id="batchInsertAdminPrivilege" parameterType="list">  
+	    insert into admin_privilege(
+			NAME, PARENT_ID, URL, IS_SHOW, CODE, SORT, CREATE_TIME, UPDATE_TIME
+		)
+		values
+	    <foreach collection="list" item="item" index="index" separator=",">  
+	        (#{item.name},#{item.parentId},#{item.url},#{item.isShow},#{item.code},#{item.sort},now(),now())
+	    </foreach>  
+    </insert> 
+</mapper>
