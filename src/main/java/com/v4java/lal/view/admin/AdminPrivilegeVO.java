@@ -12,19 +12,20 @@ public class AdminPrivilegeVO extends AdminPrivilege implements View{
 	 */
 	private static final long serialVersionUID = 9214834457065983587L;
 
-	private List<AdminPrivilege> adminPrivileges;
+	private List<AdminPrivilegeVO> adminPrivilegeVOs;
 	
 	public AdminPrivilegeVO() {
 		super();
 	}
 
-	public List<AdminPrivilege> getAdminPrivileges() {
-		return adminPrivileges;
+	public List<AdminPrivilegeVO> getAdminPrivilegeVOs() {
+		return adminPrivilegeVOs;
 	}
 
-	public void setAdminPrivileges(List<AdminPrivilege> adminPrivileges) {
-		this.adminPrivileges = adminPrivileges;
+	public void setAdminPrivilegeVOs(List<AdminPrivilegeVO> adminPrivilegeVOs) {
+		this.adminPrivilegeVOs = adminPrivilegeVOs;
 	}
+
 	
 	
 }

@@ -10,6 +10,8 @@
   <!-- 系统角色权限关联 end -->
   </resultMap>
 
+
+
   <resultMap id="adminPrivilege-resultMap" type="adminPrivilegeVO" >
   	<!-- 权限表 start -->
     <id 	column="id" 			property="id" 			jdbcType="INTEGER" />
@@ -21,8 +23,43 @@
     <result column="is_delete" 		property="isDelete" 	jdbcType="INTEGER" />
     <result column="code" 			property="code" 		jdbcType="VARCHAR" />
     <result column="sort" 			property="sort" 		jdbcType="INTEGER" />
-    <result column="create_time" 	property="createTime" 	jdbcType="TIMESTAMP" />
-    <result column="update_time" 	property="updateTime" 	jdbcType="TIMESTAMP" />
+    <!--  权限表 end -->
+  </resultMap>
+
+
+  <resultMap id="adminPrivilege-menu" type="adminPrivilegeVO" >
+  	<!-- 权限表 start -->
+    <id 	column="id" 			property="id" 			jdbcType="INTEGER" />
+    <result column="name" 			property="name" 		jdbcType="VARCHAR" />
+    <result column="parent_id" 		property="parentId" 	jdbcType="INTEGER" />
+    <result column="url" 			property="url" 			jdbcType="VARCHAR" />
+    <result column="is_show" 		property="isShow" 		jdbcType="INTEGER" />
+    <!--  -->
+    <result column="is_delete" 		property="isDelete" 	jdbcType="INTEGER" />
+    <result column="code" 			property="code" 		jdbcType="VARCHAR" />
+    <result column="sort" 			property="sort" 		jdbcType="INTEGER" />
+    	<collection property="adminPrivilegeVOs" ofType="adminPrivilegeVO" column="id" >
+    		<id 	column="id1" 			property="id" 			jdbcType="INTEGER" />
+		    <result column="name1" 			property="name" 		jdbcType="VARCHAR" />
+		    <result column="parent_id1" 	property="parentId" 	jdbcType="INTEGER" />
+		    <result column="url1" 			property="url" 			jdbcType="VARCHAR" />
+		    <result column="is_show1" 		property="isShow" 		jdbcType="INTEGER" />
+		    <result column="is_delete1" 	property="isDelete" 	jdbcType="INTEGER" />
+		    <result column="code1" 			property="code" 		jdbcType="VARCHAR" />
+		    <result column="sort1" 			property="sort" 		jdbcType="INTEGER" />
+		    
+		    <collection  property="adminPrivilegeVOs" ofType="adminPrivilegeVO" column="id1" >
+	    		<id 	column="id2" 			property="id" 			jdbcType="INTEGER" />
+			    <result column="name2" 			property="name" 		jdbcType="VARCHAR" />
+			    <result column="parent_id2" 	property="parentId" 	jdbcType="INTEGER" />
+			    <result column="url2" 			property="url" 			jdbcType="VARCHAR" />
+			    <result column="is_show2" 		property="isShow" 		jdbcType="INTEGER" />
+			    <result column="is_delete2" 	property="isDelete" 	jdbcType="INTEGER" />
+			    <result column="code2" 			property="code" 		jdbcType="VARCHAR" />
+			    <result column="sort2" 			property="sort" 		jdbcType="INTEGER" />
+    		</collection>
+    		
+    	</collection>
     <!--  权限表 end -->
   </resultMap>
 
@@ -45,14 +82,26 @@
 	    </foreach>  
 	</insert>
 	
-	<select id="selectAdminRolePrivilegeByRoleId" parameterType="java.lang.Integer" resultMap="adminPrivilege-resultMap">
-		select ap.NAME, ap.PARENT_ID, ap.URL, ap.IS_SHOW, ap.IS_DELETE, 
-			   ap.CODE, ap.SORT, ap.CREATE_TIME ,ap.ID 
+	<select id="selectAdminRolePrivilegeByRoleId" parameterType="java.lang.Integer" resultMap="adminPrivilege-menu">
+		select 
+		
+			   ap.NAME, ap.PARENT_ID, ap.URL, ap.IS_SHOW, ap.IS_DELETE, 
+			   ap.CODE, ap.SORT ,ap.ID ,
+			   ap1.NAME as NAME1, ap1.PARENT_ID as PARENT_ID1, ap1.URL as URL1, ap1.IS_SHOW as IS_SHOW1, ap1.IS_DELETE as IS_DELETE1, 
+			   ap1.CODE as CODE1, ap1.SORT as SORT1,ap1.ID as ID1 ,
+			   ap2.NAME as NAME2, ap2.PARENT_ID as PARENT_ID2, ap2.URL as URL2, ap2.IS_SHOW as IS_SHOW2, ap2.IS_DELETE as IS_DELETE2, 
+			   ap2.CODE as CODE2, ap2.SORT as SORT2,ap2.ID as ID2 
 		from 
-			admin_privilege ap 
+			admin_role_privilege  arp
 		left join 
-			admin_role_privilege arp  on arp.admin_privilege_id = ap.id 
+			admin_privilege ap   on arp.admin_privilege_id = ap.id 
+		left join 
+			admin_privilege ap1   on ap1.parent_id = ap.id
+		left join 
+			admin_privilege ap2   on ap2.parent_id = ap1.id
 		where 			   
-			arp.admin_role_id = #{adminRoleId}	
+			arp.admin_role_id = 1 and  ap.parent_id = 0
+		order by	
+			ap.id desc
 	</select>
 </mapper>

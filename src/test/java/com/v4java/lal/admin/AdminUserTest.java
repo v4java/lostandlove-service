@@ -18,7 +18,6 @@ import com.v4java.lal.view.admin.AdminUserVO;
 public class AdminUserTest extends TestCase{
 
 	
-	@Autowired
 	private IAdminUserService adminUserService;
 	public AdminUserTest(String name) {
 		super(name);
