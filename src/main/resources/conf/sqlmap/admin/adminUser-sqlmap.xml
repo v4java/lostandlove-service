@@ -76,7 +76,7 @@
 
   <select id="selectAdminUserVO" parameterType="adminUserQuery" resultMap="admin_user_view-resultMap">
 	select 
-		au.`id`, au.`admin_role_id`, au.`account`, au.`password`, au.`status`, 
+		au.`id`, au.`admin_role_id`, au.`account`, au.`status`, 
 		au.`is_delete`, au.`create_time`,ar.`name` as `admin_role_name`
 	from 
 		admin_user  au
@@ -84,16 +84,22 @@
 		admin_role ar  on ar.id = au.admin_role_id
 	<trim prefix="where" prefixOverrides="and">
 		<if test="adminRoleId != null ">
-			au.admin_role_id = #{adminRoleId}
+			and au.admin_role_id = #{adminRoleId}
 		</if>
 		<if test="account != null and account !='' ">
-			au.account  like "%"#{account}"%"
+			and au.account  like "%"#{account}"%"
 		</if>
 		<if test="status != null ">
-			au.status = 	#{status}
+			and au.status = 	#{status}
 		</if> 
 		<if test="isDelete != null ">
-			au.isDelete = 	#{isDelete}
+			and au.isDelete = 	#{isDelete}
+		</if> 
+		<if test="createTimeStart !=null and createTimeStart != '' ">
+			and au.create_time  >= #{createTimeStart}
+		</if>
+		<if test="createTimeEnd !=null and createTimeEnd != '' ">
+			 and #{createTimeEnd} >= au.create_time
 		</if> 	 	 	
 	</trim>
 		<if test="limit != null and offset != null ">
@@ -111,22 +117,22 @@
 		admin_role ar  on ar.id = au.admin_role_id
 	<trim prefix="where" prefixOverrides="and">
 		<if test="adminRoleId != null ">
-			au.admin_role_id = #{adminRoleId}
+		 	and au.admin_role_id = #{adminRoleId}
 		</if>
 		<if test="account != null and account !='' ">
-			au.account 	like "%"#{account}"%"
+			and au.account 	like "%"#{account}"%"
 		</if>
 		<if test="status != null ">
-			au.status = 	#{status}
+			and au.status = 	#{status}
 		</if> 
 		<if test="isDelete != null ">
-			au.isDelete = 	#{isDelete}
+			and au.isDelete = 	#{isDelete}
 		</if>
 		<if test="createTimeStart !=null and createTimeStart != '' ">
-			au.create_time  >= #{createTimeStart}
+			and au.create_time  >= #{createTimeStart}
 		</if>
 		<if test="createTimeEnd !=null and createTimeEnd != '' ">
-			 #{createTimeEnd} >= au.create_time
+			 and #{createTimeEnd} >= au.create_time
 		</if> 	 	 	
 	</trim>
    </select>

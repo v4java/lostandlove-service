@@ -59,6 +59,9 @@ public class Query implements Serializable{
 	}
 
 	public void setCreateTimeStart(String createTimeStart) {
+		if (createTimeStart!=null&&createTimeStart.length()==10) {
+			createTimeStart =  createTimeStart +" 00:00:00";
+		}
 		this.createTimeStart = createTimeStart;
 	}
 
@@ -67,6 +70,9 @@ public class Query implements Serializable{
 	}
 
 	public void setCreateTimeEnd(String createTimeEnd) {
+		if (createTimeEnd!=null&&createTimeEnd.length()==10) {
+			createTimeEnd =  createTimeEnd +" 23:59:59";
+		}
 		this.createTimeEnd = createTimeEnd;
 	}
 
