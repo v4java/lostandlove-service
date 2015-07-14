@@ -24,11 +24,15 @@
 
 	<!-- 全局别名设置，在映射文件中只需写别名，而不必写出整个类路径 -->
 	<typeAliases>	
+		<!--pojo  -->
 		<typeAlias type="com.v4java.lal.pojo.AdminUser" alias="adminUser" />
 		<typeAlias type="com.v4java.lal.pojo.AdminRolePrivilege" alias="adminRolePrivilege" />
 		<typeAlias type="com.v4java.lal.pojo.AdminPrivilege" alias="adminPrivilege" />
-		
-		<!-- <typeAlias type="" alias="" /> -->
+		<typeAlias type="com.v4java.lal.pojo.Jobs" alias="jobs" />
+		<typeAlias type="com.v4java.lal.pojo.FlowNode" alias="flowNode" />
+		<typeAlias type="com.v4java.lal.pojo.Workflow" alias="workflow" />
+		<typeAlias type="com.v4java.lal.pojo.WorkflowModel" alias="workflowModel" />
+		<!-- vo  -->
 		<typeAlias type="com.v4java.lal.view.admin.AdminUserVO" alias="adminUserVO" />
 		<typeAlias type="com.v4java.lal.view.admin.AdminPrivilegeVO" alias="adminPrivilegeVO" />
 			

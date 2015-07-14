@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.v4java.lal.dao.FlowNodeDao" >
+
+  <resultMap id="flowNode-resultMap" type="com.v4java.lal.pojo.AdminRole" >
+  
+    <id 	column="id" 				property="id" 			jdbcType="INTEGER" />
+    <result column="jobs_id" 			property="jobsId" 		jdbcType="INTEGER" />
+    <result column="node_type" 			property="nodeType" 	jdbcType="INTEGER" />
+    <result column="flow_test" 			property="flowTest" 	jdbcType="VARCHAR" />
+    <result column="text_node" 			property="nextNode" 	jdbcType="INTEGER" />
+    
+    <result column="name" 				property="name" 		jdbcType="VARCHAR" />
+    <result column="description" 		property="description" 	jdbcType="VARCHAR" />
+    <result column="create_time" 		property="createTime" 	jdbcType="TIMESTAMP" />
+    <result column="update_time" 		property="updateTime" 	jdbcType="TIMESTAMP" />
+    <!--  -->
+  </resultMap>
+  
+</mapper>
