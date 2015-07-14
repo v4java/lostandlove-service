@@ -5,7 +5,7 @@
   <resultMap id="workFlowModel-resultMap" type="workFlowModel" >
 	<!--  -->
     <id 	column="id" 				property="id" 			jdbcType="INTEGER" />
-    <result column="busyTypeId" 		property="busyTypeId" 	jdbcType="INTEGER" />
+    <result column="busy_type_id" 		property="busyTypeId" 	jdbcType="INTEGER" />
     <result column="model_text" 		property="modelText" 	jdbcType="VARCHAR" />
     <result column="name" 				property="name" 		jdbcType="VARCHAR" />
     <result column="description" 		property="description" 	jdbcType="VARCHAR" />
@@ -30,7 +30,7 @@
   
   <insert id="insertWorkFlowModel" parameterType="workFlowModel">
 	insert into workflow_model(
-			busyTypeId ,model_text ,name,description,status)
+			busy_type_id ,model_text ,name,description,status)
 			
 			values(#{busyTypeId} ,#{modelText} ,#{name},#{description},#{status})
    </insert>

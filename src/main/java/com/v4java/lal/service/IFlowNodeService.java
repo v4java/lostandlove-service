@@ -1,10 +1,10 @@
-package com.v4java.lal.dao;
+package com.v4java.lal.service;
 
 import java.util.List;
 
 import com.v4java.lal.pojo.FlowNode;
 
-public interface FlowNodeDao {
+public interface IFlowNodeService {
 
 	
 	List<FlowNode> findFlowNodeByWorkFlowId(Integer workFlowId) throws Exception;

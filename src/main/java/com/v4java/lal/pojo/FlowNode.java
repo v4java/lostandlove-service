@@ -10,9 +10,11 @@ public class FlowNode implements Pojo{
 	private static final long serialVersionUID = 245497925642822440L;
 	private Integer id ;//int primary key  ,
 	private Integer jobsId;//  '岗位id',
+	private Integer modelId;
 	private Integer nodeType ;//   '节点类型类型 0开始节点 1.任务节点 2.判断节点 3.结束 ',
 	private String flowTest ;//'判断json 正则判断'
-	private Integer nextNode ;// '下一个节点'
+	private Integer sort ;// '下一个节点'
+	private Integer nextSort ;// '下一个节点'
 	private String name;//  '审批流节点名称'
 	private String description;// '审批流节点描述'
 	private Timestamp createTime ;//
@@ -41,12 +43,6 @@ public class FlowNode implements Pojo{
 	public void setFlowTest(String flowTest) {
 		this.flowTest = flowTest;
 	}
-	public Integer getNextNode() {
-		return nextNode;
-	}
-	public void setNextNode(Integer nextNode) {
-		this.nextNode = nextNode;
-	}
 	public String getName() {
 		return name;
 	}
@@ -71,6 +67,22 @@ public class FlowNode implements Pojo{
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
-	
-	
+	public Integer getModelId() {
+		return modelId;
+	}
+	public void setModelId(Integer modelId) {
+		this.modelId = modelId;
+	}
+	public Integer getSort() {
+		return sort;
+	}
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+	public Integer getNextSort() {
+		return nextSort;
+	}
+	public void setNextSort(Integer nextSort) {
+		this.nextSort = nextSort;
+	}
 }

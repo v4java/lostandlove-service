@@ -1,4 +1,4 @@
-package com.v4java.lal.admin;
+/*package com.v4java.lal.admin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +25,8 @@ public class JobsUserServiceTest extends TestCase{
 	}
 	
 	public static Test suite(){
-		TestSuite test = new TestSuite("JobsServiceTest接口测试");
-		//test.addTest(new AdminUserTest("insertSelective"));
+		TestSuite test = new TestSuite("JobsService接口测试");
 		test.addTest(new JobsUserServiceTest("batchInsertJobsUser"));
-		
 		return test;
 	}
 		
@@ -87,3 +85,4 @@ public class JobsUserServiceTest extends TestCase{
 	}
 	
 }
+*/
