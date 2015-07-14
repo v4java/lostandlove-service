@@ -30,11 +30,14 @@
 		<typeAlias type="com.v4java.lal.pojo.AdminPrivilege" alias="adminPrivilege" />
 		<typeAlias type="com.v4java.lal.pojo.Jobs" alias="jobs" />
 		<typeAlias type="com.v4java.lal.pojo.FlowNode" alias="flowNode" />
-		<typeAlias type="com.v4java.lal.pojo.Workflow" alias="workflow" />
-		<typeAlias type="com.v4java.lal.pojo.WorkflowModel" alias="workflowModel" />
+		<typeAlias type="com.v4java.lal.pojo.WorkFlow" alias="workFlow" />
+		<typeAlias type="com.v4java.lal.pojo.WorkFlowModel" alias="workFlowModel" />
+		<typeAlias type="com.v4java.lal.pojo.JobsUser" alias="jobsUser" />
+		
 		<!-- vo  -->
 		<typeAlias type="com.v4java.lal.view.admin.AdminUserVO" alias="adminUserVO" />
 		<typeAlias type="com.v4java.lal.view.admin.AdminPrivilegeVO" alias="adminPrivilegeVO" />
+		<typeAlias type="com.v4java.lal.view.admin.WorkFlowVO" alias="workFlowVO" />	
 			
 		<!-- query  -->	
 		<typeAlias type="com.v4java.lal.query.admin.AdminUserQuery" alias="adminUserQuery" /> 

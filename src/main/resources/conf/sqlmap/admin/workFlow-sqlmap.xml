@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.v4java.lal.dao.WorkFlowDao" >
 
-  <resultMap id="workFlow-resultMap" type="workflow" >
+  <resultMap id="workFlow-resultMap" type="workFlow" >
     <id 	column="id" 			property="id" 			jdbcType="INTEGER" />
     <result column="busy_type_id" 	property="busyTypeId" 	jdbcType="INTEGER" />
     <result column="model_id" 		property="modelId" 		jdbcType="INTEGER" />
@@ -16,5 +16,26 @@
     <result column="update_time" 	property="updateTime" 	jdbcType="TIMESTAMP" />
   </resultMap>
 
+	<insert id="insertWorkFlow" parameterType="workFlow">
+		insert into workflow(
+				busy_type_id ,model_id ,name ,description ,jobs_id
+				,workflow_node ,status
+			)
+		values(
+			#{busyTypeId},#{modelId},#{name},#{description},#{jobsId},
+			#{workflowNode},#{status}
+			)
+	
+	</insert>
+	
+	<select id="findWorkFlowById" parameterType="java.lang.Integer" resultMap="workFlow-resultMap">
+		select 
+				id ,busy_type_id ,model_id ,name ,description ,
+				jobs_id ,workflow_node ,status
+		from 
+				workflow 
+		where
+				id = #{id}
+	</select>
   
 </mapper>

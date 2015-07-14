@@ -12,12 +12,11 @@
     <result column="update_time" 	property="updateTime" 	jdbcType="TIMESTAMP" />
   </resultMap>
   
-  <select id="batchInsetJobs" parameterType="java.lang.Integer" parameterMap="jobs-resultMap">
-  	select 
-  			id, name,status
-  	from 
-  			jobs
-  	where id = #{id}
-  </select>
-  
+	<insert id="insertJobs" parameterType="jobs">
+		insert into jobs(
+			name,description,status
+		)	
+		values(#{name},#{description},#{status})
+	</insert>	
+	  
 </mapper>
