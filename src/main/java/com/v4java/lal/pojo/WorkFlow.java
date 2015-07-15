@@ -1,5 +1,6 @@
 package com.v4java.lal.pojo;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class WorkFlow implements Pojo {
@@ -12,6 +13,8 @@ public class WorkFlow implements Pojo {
 	
 	private Integer id ;//int primary key  AUTO_INCREMENT,
 	private Integer busyTypeId ;// '业务类型id',
+	private Integer busyName ;// '业务类型',
+	private BigDecimal money;
 	private String name ;// '审批工作名',
 	private String description ;// '审批工作描述',
 	private Integer modelId ;// ,
@@ -79,6 +82,18 @@ public class WorkFlow implements Pojo {
 	}
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
+	}
+	public Integer getBusyName() {
+		return busyName;
+	}
+	public void setBusyName(Integer busyName) {
+		this.busyName = busyName;
+	}
+	public BigDecimal getMoney() {
+		return money;
+	}
+	public void setMoney(BigDecimal money) {
+		this.money = money;
 	}
 	
 	

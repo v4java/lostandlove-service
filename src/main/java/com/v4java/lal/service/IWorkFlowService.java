@@ -1,8 +1,8 @@
-package com.v4java.lal.dao;
+package com.v4java.lal.service;
 
 import com.v4java.lal.pojo.WorkFlow;
 
-public interface WorkFlowDao {
+public interface IWorkFlowService {
 
 	
 	WorkFlow findWorkFlowById(Integer id) throws Exception;
