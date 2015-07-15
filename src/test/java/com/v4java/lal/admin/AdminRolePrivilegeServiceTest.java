@@ -16,10 +16,11 @@ import com.v4java.lal.view.admin.AdminPrivilegeVO;
 public class AdminRolePrivilegeServiceTest extends TestCase {
 
 	private IAdminRolePrivilegeService adminRolePrivilegeService;
+	private ApplicationContext context;
 	
 	public AdminRolePrivilegeServiceTest(String name) {
 		super(name);
-		ApplicationContext context = new ClassPathXmlApplicationContext("admin-service-applicationContext.xml");
+		context = new ClassPathXmlApplicationContext("admin-service-applicationContext.xml");
 		adminRolePrivilegeService =(IAdminRolePrivilegeService) context.getBean("adminRolePrivilegeService");
 	}
 

@@ -1,5 +1,6 @@
 package com.v4java.lal.view.admin;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import com.v4java.lal.view.View;
@@ -19,6 +20,8 @@ public class WorkFlowVO implements View{
 	private Timestamp updateTime;
 	private String jobsName;
 	private String jobsDescription;
+	private String busyTypeName ;// '业务类型',
+	private BigDecimal money;
 	public Integer getId() {
 		return id;
 	}
@@ -72,6 +75,27 @@ public class WorkFlowVO implements View{
 	}
 	public void setJobsDescription(String jobsDescription) {
 		this.jobsDescription = jobsDescription;
+	}
+	public String getBusyTypeName() {
+		return busyTypeName;
+	}
+	public void setBusyTypeName(String busyTypeName) {
+		this.busyTypeName = busyTypeName;
+	}
+	public BigDecimal getMoney() {
+		return money;
+	}
+	public void setMoney(BigDecimal money) {
+		this.money = money;
+	}
+	@Override
+	public String toString() {
+		return "WorkFlowVO [id=" + id + ", busyTypeId=" + busyTypeId
+				+ ", name=" + name + ", modelId=" + modelId + ", description="
+				+ description + ", createTime=" + createTime + ", updateTime="
+				+ updateTime + ", jobsName=" + jobsName + ", jobsDescription="
+				+ jobsDescription + ", busyTypeName=" + busyTypeName
+				+ ", money=" + money + "]";
 	}
 	
 	

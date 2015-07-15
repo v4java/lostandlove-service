@@ -15,10 +15,11 @@ import com.v4java.lal.service.IFlowNodeService;
 public class FlowNodeServiceTest extends TestCase{
 
 	private IFlowNodeService flowNodeService;
+	private ApplicationContext context;
 	
 	public FlowNodeServiceTest(String name) {
 		super(name);
-		ApplicationContext context = new ClassPathXmlApplicationContext("admin-service-applicationContext.xml");
+		context = new ClassPathXmlApplicationContext("admin-service-applicationContext.xml");
 		flowNodeService =(IFlowNodeService) context.getBean("flowNodeService");
 	}
 	

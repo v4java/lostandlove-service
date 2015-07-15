@@ -8,7 +8,7 @@ import com.v4java.lal.view.admin.WorkFlowVO;
 public interface JobsUserDao {
 
 	
-	List<WorkFlowVO> findUserWorkFlowVOByUserCode(String userCode) throws Exception;
+
 	
 	void batchInsertJobsUser(List<JobsUser> jobsUsers) throws Exception;
 	

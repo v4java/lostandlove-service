@@ -19,9 +19,10 @@ public class AdminUserTest extends TestCase{
 
 	
 	private IAdminUserService adminUserService;
+	private ApplicationContext context;
 	public AdminUserTest(String name) {
 		super(name);
-		ApplicationContext context = new ClassPathXmlApplicationContext("admin-service-applicationContext.xml");
+		context = new ClassPathXmlApplicationContext("admin-service-applicationContext.xml");
 		adminUserService =(IAdminUserService) context.getBean("adminUserService");
 	}
 	

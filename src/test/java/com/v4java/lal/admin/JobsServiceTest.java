@@ -14,10 +14,11 @@ import com.v4java.lal.service.IJobsService;
 public class JobsServiceTest extends TestCase{
 
 	private IJobsService jobsService;
+	private ApplicationContext context;
 
 	public JobsServiceTest(String name) {
 		super(name);
-		ApplicationContext context = new ClassPathXmlApplicationContext("admin-service-applicationContext.xml");
+		context = new ClassPathXmlApplicationContext("admin-service-applicationContext.xml");
 		jobsService =(IJobsService) context.getBean("jobsService");
 	}
 	

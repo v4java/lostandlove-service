@@ -15,35 +15,6 @@
 
   </resultMap>
   
-  <resultMap type="workFlowVO" id="workFlowVO-resultMap">
-  	<id 	column="id" 					property="id" 				jdbcType="INTEGER" />
-    <result column="busy_type_id" 			property="busyTypeId" 		jdbcType="INTEGER" />
-    <result column="model_id" 				property="modelId" 			jdbcType="INTEGER" />
-    <result column="name" 					property="name" 			jdbcType="VARCHAR" />
-    <result column="description" 			property="description" 		jdbcType="VARCHAR" />
-    	
-    <result column="create_time" 			property="createTime" 		jdbcType="TIMESTAMP" />
-    <result column="update_time" 			property="updateTime" 		jdbcType="TIMESTAMP" />
-    <result column="jobs_name" 				property="jobsName" 		jdbcType="VARCHAR" />
-    <result column="jobs_description" 		property="jobsDescription" 	jdbcType="VARCHAR" />
-    
-  </resultMap>
-  
-  	<select id="findUserWorkFlowVOByUserCode" parameterType="string" resultMap="jobsUser-resultMap">
-  		select 
-  				wf.id,wf.busy_type_id,wf.name,wf.model_id,wf.description ,
-  				wf.create_time ,wf.update_time,j.jobs_name , j.jobs_description 
-  		from 
-  				jobs_user ju 
-  		left join 
-  				 workflow wf on wf.jobs_id = ju.jobs_id
-  		left join 
-  				jobs j on j.id = ju.jobs_id
-  				
-  		where 
-  				ju.user_code = #{userCode}	
-  	</select>
-  	
   	<insert id="batchInsertJobsUser" parameterType="list">
   		insert into jobs_user(
   				jobs_id,user_code,user_name,status)
