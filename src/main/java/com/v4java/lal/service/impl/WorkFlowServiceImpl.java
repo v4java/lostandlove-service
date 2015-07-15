@@ -1,11 +1,13 @@
 package com.v4java.lal.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.v4java.lal.dao.WorkFlowDao;
 import com.v4java.lal.pojo.WorkFlow;
 import com.v4java.lal.service.IWorkFlowService;
 
+@Service("workFlowService")
 public class WorkFlowServiceImpl implements IWorkFlowService{
 
 	@Autowired

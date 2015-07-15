@@ -1,4 +1,4 @@
-/*package com.v4java.lal.admin;
+package com.v4java.lal.admin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.v4java.lal.pojo.JobsUser;
 import com.v4java.lal.service.IJobsUserService;
+import com.v4java.lal.view.admin.WorkFlowVO;
 
 
 public class JobsUserServiceTest extends TestCase{
@@ -29,7 +30,11 @@ public class JobsUserServiceTest extends TestCase{
 		test.addTest(new JobsUserServiceTest("batchInsertJobsUser"));
 		return test;
 	}
-		
+	
+	public void findUserWorkFlowVOByUserId(){
+		List<WorkFlowVO> workFlowVOs = findUserWorkFlowVOByUserId();
+	}
+	
 	public void batchInsertJobsUser() throws Exception{
 		List<JobsUser> jobsUsers = new ArrayList<JobsUser>();
 		JobsUser jobsUser1 = new JobsUser();
@@ -85,4 +90,3 @@ public class JobsUserServiceTest extends TestCase{
 	}
 	
 }
-*/

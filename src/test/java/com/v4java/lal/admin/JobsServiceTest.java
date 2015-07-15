@@ -31,8 +31,8 @@ public class JobsServiceTest extends TestCase{
 		
 	public void insertJobs() throws Exception{
 		Jobs jobs = new Jobs();
-		jobs.setName("审批2");
-		jobs.setDescription("审批2");
+		jobs.setName("总裁");
+		jobs.setDescription("总裁");
 		jobs.setStatus(0);
 		int n = jobsService.insertJobs(jobs);
 		System.err.println(n);

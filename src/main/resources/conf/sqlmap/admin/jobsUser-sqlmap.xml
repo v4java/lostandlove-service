@@ -29,7 +29,7 @@
     
   </resultMap>
   
-  	<select id="findUserWorkFlowVOByUserId" parameterType="string" resultMap="jobsUser-resultMap">
+  	<select id="findUserWorkFlowVOByUserCode" parameterType="string" resultMap="jobsUser-resultMap">
   		select 
   				wf.id,wf.busy_type_id,wf.name,wf.model_id,wf.description ,
   				wf.create_time ,wf.update_time,j.jobs_name , j.jobs_description 

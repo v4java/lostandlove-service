@@ -24,7 +24,7 @@ public class FlowNodeServiceTest extends TestCase{
 	
 	public static Test suite(){
 		TestSuite test = new TestSuite("FlowNodeService接口测试");
-		test.addTest(new FlowNodeServiceTest("findFlowNodeByWorkFlowId"));
+		test.addTest(new FlowNodeServiceTest("insertFlowNode"));
 		return test;
 	}
 	
@@ -32,8 +32,8 @@ public class FlowNodeServiceTest extends TestCase{
 		FlowNode flowNode =new FlowNode();
 		flowNode.setJobsId(0);
 		flowNode.setModelId(5);
-		flowNode.setName("结束");
-		flowNode.setDescription("结束");
+		flowNode.setName("借款审批结束");
+		flowNode.setDescription("借款审批结束");
 		flowNode.setNodeType(3);
 		flowNode.setSort(6);
 		flowNode.setNextSort(0);
