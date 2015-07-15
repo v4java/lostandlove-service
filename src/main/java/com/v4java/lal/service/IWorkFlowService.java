@@ -27,4 +27,16 @@ public interface IWorkFlowService {
 	 * @throws Exception
 	 */
 	int findUserWorkFlowVOCountByUserCode(String userCode) throws Exception;
+	
+	/**
+	 * 进行工作流审批
+	 * @param workFlowId 待审批工作id
+	 * @param userCode	 用户码
+	 * @param agree		 是否同意  
+	 * 							  0  同意
+	 * 							  1  不同意	
+	 * @return
+	 * @throws Exception
+	 */
+	int doWorkFlow(Integer workFlowId,String userCode,int agree)throws Exception;
 }
