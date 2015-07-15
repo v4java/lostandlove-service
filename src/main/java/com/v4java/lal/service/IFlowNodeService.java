@@ -7,7 +7,7 @@ import com.v4java.lal.pojo.FlowNode;
 public interface IFlowNodeService {
 
 	
-	List<FlowNode> findFlowNodeByWorkFlowId(Integer workFlowId) throws Exception;
+	List<FlowNode> findFlowNodeByModelId(Integer workFlowId) throws Exception;
 	
 	FlowNode findFlowNodeById(Integer Id) throws Exception;
 	

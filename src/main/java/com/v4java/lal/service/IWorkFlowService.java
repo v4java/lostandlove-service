@@ -2,7 +2,9 @@ package com.v4java.lal.service;
 
 import java.util.List;
 
+import com.v4java.lal.pojo.ApproveLog;
 import com.v4java.lal.pojo.WorkFlow;
+import com.v4java.lal.view.admin.UserVO;
 import com.v4java.lal.view.admin.WorkFlowVO;
 
 public interface IWorkFlowService {
@@ -31,12 +33,10 @@ public interface IWorkFlowService {
 	/**
 	 * 进行工作流审批
 	 * @param workFlowId 待审批工作id
-	 * @param userCode	 用户码
-	 * @param agree		 是否同意  
-	 * 							  0  同意
-	 * 							  1  不同意	
+	 * @param UserVO	 用户码
+	 * @param ApproveLog		 
 	 * @return
 	 * @throws Exception
 	 */
-	int doWorkFlow(Integer workFlowId,String userCode,int agree)throws Exception;
+	int doWorkFlow(Integer workFlowId, UserVO userVO,ApproveLog approveLog)throws Exception;
 }

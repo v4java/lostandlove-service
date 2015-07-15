@@ -15,8 +15,8 @@ public class FlowNodeServiceImpl implements IFlowNodeService{
 	@Autowired
 	private FlowNodeDao flowNodeDao;
 	@Override
-	public List<FlowNode> findFlowNodeByWorkFlowId(Integer workFlowId)throws Exception {
-		return flowNodeDao.findFlowNodeByWorkFlowId(workFlowId);
+	public List<FlowNode> findFlowNodeByModelId(Integer workFlowId)throws Exception {
+		return flowNodeDao.findFlowNodeByModelId(workFlowId);
 	}
 
 	@Override

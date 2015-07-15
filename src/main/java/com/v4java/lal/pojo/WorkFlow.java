@@ -19,7 +19,7 @@ public class WorkFlow implements Pojo {
 	private String description ;// '审批工作描述',
 	private Integer modelId ;// ,
 	private Integer jobsId;// '待审批岗位id',
-	private Integer workflowNode ;// '下一个审批节点',
+	private Integer workflowNode ;// '审批节点',
 	private Integer status ;// '0 未开始审批，可以编辑更改 1 正在审批，不可以编辑更改 2 审批结束，不可以编辑更改',
 	private Timestamp createTime ;//
 	private Timestamp updateTime ;//

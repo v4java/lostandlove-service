@@ -26,4 +26,6 @@ public interface WorkFlowDao {
 	 * @throws Exception
 	 */
 	int findUserWorkFlowVOCountByUserCode(String userCode) throws Exception;
+	
+	int updateWorkFlow(WorkFlow workFlow) throws Exception;
 }
