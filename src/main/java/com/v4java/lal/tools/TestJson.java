@@ -1,6 +1,7 @@
 package com.v4java.lal.tools;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class TestJson implements Serializable{
 
@@ -9,15 +10,17 @@ public class TestJson implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String test;
+	private Double[] test;
 	
 	private Integer target;
 
-	public String getTest() {
+
+
+	public Double[] getTest() {
 		return test;
 	}
 
-	public void setTest(String test) {
+	public void setTest(Double[] test) {
 		this.test = test;
 	}
 

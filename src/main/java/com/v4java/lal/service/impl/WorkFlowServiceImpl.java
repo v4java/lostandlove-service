@@ -1,5 +1,6 @@
 package com.v4java.lal.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,20 +100,17 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 				break;
 			case FlowConst.NODE_TYPE_IF:
 				List<TestJson> testJsons = JSON.parseArray(nextFlowNode.getFlowTest(),TestJson.class);
-				String money = workFlow.getMoney().toString();
+				BigDecimal money = workFlow.getMoney();
 				int sort = 0;
 				for (TestJson testJson : testJsons) {
-					if (money.matches(testJson.getTest())) {
+					Double[] test = testJson.getTest();
+					if (money.compareTo(new BigDecimal(test[0]))==-1&&money.compareTo(new BigDecimal(test[1]))==1) {
 						sort = testJson.getTarget();
 						break;
 					}
 				}
-				for (FlowNode flowNodetmp : flowNodes) {
-					if (flowNodetmp.getSort() ==sort) {
-						nextFlowNode = flowNodetmp;
-						break;
-					}
-				}
+				workFlow.setStatus(FlowConst.ING);
+				nextFlowNode = findWorkFlowBySort(flowNodes, sort);
 				workFlow.setJobsId(nextFlowNode.getJobsId());
 				workFlow.setWorkflowNode(nextFlowNode.getId());
 				workFlow.setStatus(FlowConst.ING);
@@ -133,6 +131,16 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 		approveLog.setWorkFlowId(workFlowId);
 		approveLogDao.insertApproveLog(approveLog);
 		return n;
+	}
+	
+	private FlowNode findWorkFlowBySort(List<FlowNode> flowNodes,int sort){
+		for (FlowNode flowNode : flowNodes) {
+			if (flowNode.getSort()==sort) {
+				return flowNode;
+			}
+		}
+		return null;
+		
 	}
 	
 }
