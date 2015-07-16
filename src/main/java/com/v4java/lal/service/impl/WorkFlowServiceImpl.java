@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.v4java.lal.common.FlowConst;
 import com.v4java.lal.dao.ApproveLogDao;
 import com.v4java.lal.dao.FlowNodeDao;
@@ -14,6 +14,7 @@ import com.v4java.lal.pojo.ApproveLog;
 import com.v4java.lal.pojo.FlowNode;
 import com.v4java.lal.pojo.WorkFlow;
 import com.v4java.lal.service.IWorkFlowService;
+import com.v4java.lal.tools.TestJson;
 import com.v4java.lal.view.admin.UserVO;
 import com.v4java.lal.view.admin.WorkFlowVO;
 
@@ -91,6 +92,24 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 				workFlow.setStatus(FlowConst.ING);
 				break;
 			case FlowConst.NODE_TYPE_IF:
+				List<TestJson> testJsons = JSON.parseArray( nextFlowNode.getFlowTest(),TestJson.class);
+				String money = workFlow.getMoney().toString();
+				int sort = 0;
+				for (TestJson testJson : testJsons) {
+					if (money.matches(testJson.getTest())) {
+						sort = testJson.getTarget();
+						break;
+					}
+				}
+				for (FlowNode flowNodetmp : flowNodes) {
+					if (flowNodetmp.getSort() ==sort) {
+						nextFlowNode = flowNodetmp;
+						break;
+					}
+				}
+				workFlow.setJobsId(nextFlowNode.getJobsId());
+				workFlow.setWorkflowNode(nextFlowNode.getId());
+				workFlow.setStatus(FlowConst.ING);
 				break;		
 			case FlowConst.NODE_TYPE_END:
 				workFlow.setJobsId(0);
