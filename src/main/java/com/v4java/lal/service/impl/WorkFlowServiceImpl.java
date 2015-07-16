@@ -44,7 +44,9 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 			workFlow.setStatus(0);
 		}else {
 			List<FlowNode> flowNodes = flowNodeDao.findFlowNodeByModelId(workFlow.getModelId()); 
-			FlowNode nextFlowNode = f
+			//得到当前节点
+			FlowNode nowFlowNode = findWorkFlowById(flowNodes, workFlow.getWorkflowNode());
+			FlowNode nextFlowNode = findWorkFlowBySort(flowNodes, nowFlowNode.getNextSort());
 			changeworkFlow(nextFlowNode, workFlow, flowNodes);
 			
 		}
@@ -82,9 +84,8 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 			workFlow.setWorkflowNode(firstFlowNode.getId());
 			
 		}else if (approveLog.getStatus() == FlowConst.AGREE_TRUE) {
-			int nextNodeSort = nowFlowNode.getNextSort();
 			//寻找下一个节点
-			FlowNode nextFlowNode = findWorkFlowBySort(flowNodes, nextNodeSort);
+			FlowNode nextFlowNode = findWorkFlowBySort(flowNodes, nowFlowNode.getNextSort());
 			changeworkFlow(nextFlowNode, workFlow, flowNodes);
 
 		}

@@ -75,7 +75,13 @@ public class WorkFlowServiceTest  extends TestCase{
 		flow.setName("提现申请");
 		flow.setWorkflowNode(6);
 		flow.setModelId(6);
-		workFlowService.insertWorkFlow(flow);
+		UserVO userVO = new UserVO();
+		List<Integer> jobsIds = new ArrayList<Integer>();
+		jobsIds.add(3);
+		userVO.setJobsIds(jobsIds);
+		userVO.setUserCode("37740048@qq.com");
+		userVO.setUserName("37740048@qq.com");
+		workFlowService.insertWorkFlow(flow,userVO);
 	}
 	
 }
