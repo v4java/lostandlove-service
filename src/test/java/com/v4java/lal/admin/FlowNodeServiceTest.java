@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.alibaba.fastjson.JSONArray;
+import com.v4java.lal.common.FlowConst;
 import com.v4java.lal.pojo.FlowNode;
 import com.v4java.lal.service.IFlowNodeService;
 import com.v4java.lal.tools.TestJson;
@@ -41,7 +42,7 @@ public class FlowNodeServiceTest extends TestCase{
 		json1.setTarget(4);
 		json1.setTest(a1);
 		TestJson json2 =new TestJson();
-		Double[] a2={(double) 200000,Double.MAX_VALUE};
+		Double[] a2={(double) 200000,FlowConst.NODE_FLOW_IF_VALUE_MAX};
 		json2.setTarget(5);
 		json2.setTest(a2);
 		flowNode.setDescription("大于200000需要财务主管审批");

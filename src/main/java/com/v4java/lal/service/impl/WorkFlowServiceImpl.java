@@ -104,9 +104,16 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 				int sort = 0;
 				for (TestJson testJson : testJsons) {
 					Double[] test = testJson.getTest();
-					if (money.compareTo(new BigDecimal(test[0]))==-1&&money.compareTo(new BigDecimal(test[1]))==1) {
-						sort = testJson.getTarget();
-						break;
+					if (test[1]==-1) {
+						if (money.compareTo(new BigDecimal(test[0]))==1) {
+							sort = testJson.getTarget();
+							break;
+						}
+					}else {
+						if (money.compareTo(new BigDecimal(test[0]))==1&&money.compareTo(new BigDecimal(test[1]))==-1) {
+							sort = testJson.getTarget();
+							break;
+						}
 					}
 				}
 				workFlow.setStatus(FlowConst.ING);

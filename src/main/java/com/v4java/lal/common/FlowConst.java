@@ -25,4 +25,6 @@ public class FlowConst {
 	//结束节点
 	public static final int NODE_TYPE_END = 3;
 	
+	public static final Double NODE_FLOW_IF_VALUE_MAX = -1.0;
 }
+

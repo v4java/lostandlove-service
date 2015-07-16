@@ -1,4 +1,4 @@
-/*package com.v4java.lal.admin;
+package com.v4java.lal.admin;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class WorkFlowServiceTest  extends TestCase{
 	
 	public static Test suite(){
 		TestSuite test = new TestSuite("WorkFlowServiceTest接口测试");
-		test.addTest(new WorkFlowServiceTest("insertWorkFlow"));
+		test.addTest(new WorkFlowServiceTest("doWorkFlow2"));
 		return test;
 	}
 	public void findUserWorkFlowVOByUserId() throws Exception{
@@ -51,18 +51,31 @@ public class WorkFlowServiceTest  extends TestCase{
 		userVO.setUserName("陈海龙");
 		ApproveLog approveLog = new ApproveLog();
 		approveLog.setStatus(0);
-		workFlowService.doWorkFlow(5, userVO, approveLog);
+		workFlowService.doWorkFlow(6, userVO, approveLog);
 	}
+	
+	public void doWorkFlow2()throws Exception{
+		UserVO userVO = new UserVO();
+		List<Integer> jobsIds = new ArrayList<Integer>();
+		jobsIds.add(3);
+		userVO.setJobsIds(jobsIds);
+		userVO.setUserCode("37740048@qq.com");
+		userVO.setUserName("37740048@qq.com");
+		ApproveLog approveLog = new ApproveLog();
+		approveLog.setStatus(1);
+		workFlowService.doWorkFlow(6, userVO, approveLog);
+	}
+	
 	public void insertWorkFlow() throws Exception{
 		WorkFlow flow = new WorkFlow();
 		flow.setBusyTypeName("提现申请");
 		flow.setBusyTypeId(1);
 		flow.setDescription("提现申请");
-		flow.setMoney(new BigDecimal(99999.11));
+		flow.setMoney(new BigDecimal(999999999.11));
 		flow.setName("提现申请");
 		flow.setWorkflowNode(6);
+		flow.setModelId(6);
 		workFlowService.insertWorkFlow(flow);
 	}
 	
 }
-*/
