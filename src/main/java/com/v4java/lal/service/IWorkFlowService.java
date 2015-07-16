@@ -12,7 +12,7 @@ public interface IWorkFlowService {
 	
 	WorkFlow findWorkFlowById(Integer id) throws Exception;
 	
-	void insertWorkFlow(WorkFlow workFlow) throws Exception;
+	void insertWorkFlow(WorkFlow workFlow,UserVO userVO) throws Exception;
 
 
 	/**

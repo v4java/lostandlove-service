@@ -36,11 +36,18 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 	}
 
 	@Override
-	public void insertWorkFlow(WorkFlow workFlow) throws Exception {
-		FlowNode firstNode = flowNodeDao.findFirstFlowNodeById(workFlow.getModelId());
-		workFlow.setJobsId(firstNode.getJobsId());
-		workFlow.setWorkflowNode(firstNode.getId());
-		workFlow.setStatus(0);
+	public void insertWorkFlow(WorkFlow workFlow,UserVO userVO) throws Exception {
+		if (userVO.getJobsIds()==null) {
+			FlowNode firstNode = flowNodeDao.findFirstFlowNodeById(workFlow.getModelId());
+			workFlow.setJobsId(firstNode.getJobsId());
+			workFlow.setWorkflowNode(firstNode.getId());
+			workFlow.setStatus(0);
+		}else {
+			List<FlowNode> flowNodes = flowNodeDao.findFlowNodeByModelId(workFlow.getModelId()); 
+			FlowNode nextFlowNode = f
+			changeworkFlow(nextFlowNode, workFlow, flowNodes);
+			
+		}
 		workFlowDao.insertWorkFlow(workFlow);
 	}
 
@@ -59,14 +66,9 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 	public int doWorkFlow(Integer workFlowId, UserVO userVO,ApproveLog approveLog) throws Exception {
 		WorkFlow workFlow = workFlowDao.findWorkFlowById(workFlowId);
 		List<FlowNode> flowNodes = flowNodeDao.findFlowNodeByModelId(workFlow.getModelId()); 
-		FlowNode nowFlowNode = null;
-		//得到待审批的节点
-		for (FlowNode flowNodetmp : flowNodes) {
-			if (flowNodetmp.getId()==workFlow.getWorkflowNode()) {
-				nowFlowNode = flowNodetmp;
-				break;
-			}
-		}
+		//得到当前节点
+		FlowNode nowFlowNode = findWorkFlowById(flowNodes, workFlow.getWorkflowNode());
+		//判断有无权限
 		if (!userVO.getJobsIds().contains(nowFlowNode.getJobsId())) {
 			System.err.println("没有该权限");
 			return -1;
@@ -80,56 +82,17 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 			workFlow.setWorkflowNode(firstFlowNode.getId());
 			
 		}else if (approveLog.getStatus() == FlowConst.AGREE_TRUE) {
-			FlowNode nextFlowNode = null;
 			int nextNodeSort = nowFlowNode.getNextSort();
 			//寻找下一个节点
-			for (FlowNode flowNodetmp : flowNodes) {
+			FlowNode nextFlowNode = findWorkFlowBySort(flowNodes, nextNodeSort);
+/*			for (FlowNode flowNodetmp : flowNodes) {
 				if (flowNodetmp.getSort()==nextNodeSort) {
 					nextFlowNode = flowNodetmp;
 					break;
 				}
-			}
-			switch (nextFlowNode.getNodeType()) {
-			case FlowConst.node_type_start:
-				//系统错误
-				break;
-			case FlowConst.NODE_TYPE_TASK:
-				workFlow.setJobsId(nextFlowNode.getJobsId());
-				workFlow.setWorkflowNode(nextFlowNode.getId());
-				workFlow.setStatus(FlowConst.ING);
-				break;
-			case FlowConst.NODE_TYPE_IF:
-				List<TestJson> testJsons = JSON.parseArray(nextFlowNode.getFlowTest(),TestJson.class);
-				BigDecimal money = workFlow.getMoney();
-				int sort = 0;
-				for (TestJson testJson : testJsons) {
-					Double[] test = testJson.getTest();
-					if (test[1]==-1) {
-						if (money.compareTo(new BigDecimal(test[0]))==1) {
-							sort = testJson.getTarget();
-							break;
-						}
-					}else {
-						if (money.compareTo(new BigDecimal(test[0]))==1&&money.compareTo(new BigDecimal(test[1]))==-1) {
-							sort = testJson.getTarget();
-							break;
-						}
-					}
-				}
-				workFlow.setStatus(FlowConst.ING);
-				nextFlowNode = findWorkFlowBySort(flowNodes, sort);
-				workFlow.setJobsId(nextFlowNode.getJobsId());
-				workFlow.setWorkflowNode(nextFlowNode.getId());
-				workFlow.setStatus(FlowConst.ING);
-				break;		
-			case FlowConst.NODE_TYPE_END:
-				workFlow.setJobsId(0);
-				workFlow.setWorkflowNode(0);
-				workFlow.setStatus(FlowConst.END);
-				break;		
-			default:
-				break;
-			}
+			}*/
+			changeworkFlow(nextFlowNode, workFlow, flowNodes);
+
 		}
 		int n=workFlowDao.updateWorkFlow(workFlow);
 		approveLog.setUserCode(userVO.getUserCode());
@@ -140,6 +103,30 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 		return n;
 	}
 	
+	/**
+	 * 从传入的模板所用工作流节点或id为？节点
+	 * @param flowNodes 从传入的模板所用工作流节点
+	 * @param id		待查的id
+	 * @return
+	 */
+	private FlowNode findWorkFlowById(List<FlowNode> flowNodes,int id){
+		FlowNode nowFlowNode = null;
+		for (FlowNode flowNodetmp : flowNodes) {
+			if (flowNodetmp.getId()==id) {
+				nowFlowNode = flowNodetmp;
+				break;
+			}
+		}
+		return nowFlowNode;
+		
+	}
+	
+	/**
+	 * 
+	 * @param flowNodes 从传入的模板所用工作流节点
+	 * @param sort		某个节点标记
+	 * @return
+	 */
 	private FlowNode findWorkFlowBySort(List<FlowNode> flowNodes,int sort){
 		for (FlowNode flowNode : flowNodes) {
 			if (flowNode.getSort()==sort) {
@@ -150,4 +137,55 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 		
 	}
 	
+	/**
+	 * 改变正在审批流程的状态
+	 * @param nextFlowNode 下一个节点
+	 * @param workFlow	正在审批的流程
+	 * @param flowNodes	所用几点
+	 */
+	private void changeworkFlow(FlowNode nextFlowNode ,WorkFlow workFlow ,List<FlowNode> flowNodes){
+		switch (nextFlowNode.getNodeType()) {
+		case FlowConst.node_type_start:
+			//系统错误
+			break;
+		case FlowConst.NODE_TYPE_TASK:
+			workFlow.setJobsId(nextFlowNode.getJobsId());
+			workFlow.setWorkflowNode(nextFlowNode.getId());
+			workFlow.setStatus(FlowConst.ING);
+			break;
+		case FlowConst.NODE_TYPE_IF:
+			
+			List<TestJson> testJsons = JSON.parseArray(nextFlowNode.getFlowTest(),TestJson.class);
+			BigDecimal money = workFlow.getMoney();
+			int sort = 0;
+			for (TestJson testJson : testJsons) {
+				Double[] test = testJson.getTest();
+				if (test[1]==-1) {
+					if (money.compareTo(new BigDecimal(test[0]))==1) {
+						sort = testJson.getTarget();
+						break;
+					}
+				}else {
+					if (money.compareTo(new BigDecimal(test[0]))==1&&money.compareTo(new BigDecimal(test[1]))==-1) {
+						sort = testJson.getTarget();
+						break;
+					}
+				}
+			}
+			workFlow.setStatus(FlowConst.ING);
+			nextFlowNode = findWorkFlowBySort(flowNodes, sort);
+			workFlow.setJobsId(nextFlowNode.getJobsId());
+			workFlow.setWorkflowNode(nextFlowNode.getId());
+			workFlow.setStatus(FlowConst.ING);
+			
+			break;		
+		case FlowConst.NODE_TYPE_END:
+			workFlow.setJobsId(0);
+			workFlow.setWorkflowNode(0);
+			workFlow.setStatus(FlowConst.END);
+			break;		
+		default:
+			break;
+		}
+	}
 }
