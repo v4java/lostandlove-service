@@ -85,12 +85,6 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 			int nextNodeSort = nowFlowNode.getNextSort();
 			//寻找下一个节点
 			FlowNode nextFlowNode = findWorkFlowBySort(flowNodes, nextNodeSort);
-/*			for (FlowNode flowNodetmp : flowNodes) {
-				if (flowNodetmp.getSort()==nextNodeSort) {
-					nextFlowNode = flowNodetmp;
-					break;
-				}
-			}*/
 			changeworkFlow(nextFlowNode, workFlow, flowNodes);
 
 		}
