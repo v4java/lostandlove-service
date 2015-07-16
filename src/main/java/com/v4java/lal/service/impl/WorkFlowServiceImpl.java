@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.v4java.lal.common.FlowConst;
@@ -35,6 +36,10 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 
 	@Override
 	public void insertWorkFlow(WorkFlow workFlow) throws Exception {
+		FlowNode firstNode = flowNodeDao.findFirstFlowNodeById(workFlow.getModelId());
+		workFlow.setJobsId(firstNode.getJobsId());
+		workFlow.setWorkflowNode(firstNode.getId());
+		workFlow.setStatus(0);
 		workFlowDao.insertWorkFlow(workFlow);
 	}
 
@@ -49,6 +54,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 	}
 
 	@Override
+	@Transactional
 	public int doWorkFlow(Integer workFlowId, UserVO userVO,ApproveLog approveLog) throws Exception {
 		WorkFlow workFlow = workFlowDao.findWorkFlowById(workFlowId);
 		List<FlowNode> flowNodes = flowNodeDao.findFlowNodeByModelId(workFlow.getModelId()); 
@@ -92,7 +98,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 				workFlow.setStatus(FlowConst.ING);
 				break;
 			case FlowConst.NODE_TYPE_IF:
-				List<TestJson> testJsons = JSON.parseArray( nextFlowNode.getFlowTest(),TestJson.class);
+				List<TestJson> testJsons = JSON.parseArray(nextFlowNode.getFlowTest(),TestJson.class);
 				String money = workFlow.getMoney().toString();
 				int sort = 0;
 				for (TestJson testJson : testJsons) {
@@ -120,12 +126,12 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 				break;
 			}
 		}
-		int n = workFlowDao.updateWorkFlow(workFlow);
-			approveLog.setUserCode(userVO.getUserCode());
-			approveLog.setUserName(userVO.getUserName());
-			approveLog.setFlowNode(nowFlowNode.getId());
-			approveLog.setWorkFlowId(workFlowId);
-			approveLogDao.insertApproveLog(approveLog);
+		int n=workFlowDao.updateWorkFlow(workFlow);
+		approveLog.setUserCode(userVO.getUserCode());
+		approveLog.setUserName(userVO.getUserName());
+		approveLog.setFlowNode(nowFlowNode.getId());
+		approveLog.setWorkFlowId(workFlowId);
+		approveLogDao.insertApproveLog(approveLog);
 		return n;
 	}
 	

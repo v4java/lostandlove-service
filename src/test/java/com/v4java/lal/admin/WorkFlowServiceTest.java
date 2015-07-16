@@ -1,4 +1,4 @@
-package com.v4java.lal.admin;
+/*package com.v4java.lal.admin;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class WorkFlowServiceTest  extends TestCase{
 	
 	public static Test suite(){
 		TestSuite test = new TestSuite("WorkFlowServiceTest接口测试");
-		test.addTest(new WorkFlowServiceTest("doWorkFlow"));
+		test.addTest(new WorkFlowServiceTest("insertWorkFlow"));
 		return test;
 	}
 	public void findUserWorkFlowVOByUserId() throws Exception{
@@ -55,16 +55,14 @@ public class WorkFlowServiceTest  extends TestCase{
 	}
 	public void insertWorkFlow() throws Exception{
 		WorkFlow flow = new WorkFlow();
-		flow.setBusyTypeName("借款申请");
-		flow.setBusyTypeId(0);
-		flow.setDescription("借款申请");
-		flow.setJobsId(1);
-		flow.setModelId(5);
-		flow.setMoney(new BigDecimal(200011));
-		flow.setStatus(0);
-		flow.setName("借款申请");
+		flow.setBusyTypeName("提现申请");
+		flow.setBusyTypeId(1);
+		flow.setDescription("提现申请");
+		flow.setMoney(new BigDecimal(99999.11));
+		flow.setName("提现申请");
 		flow.setWorkflowNode(6);
 		workFlowService.insertWorkFlow(flow);
 	}
 	
 }
+*/

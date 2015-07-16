@@ -32,9 +32,9 @@ public class WorkFlowModelServiceTest extends TestCase{
 	
 	public void insertWorkFlowModel() throws Exception{
 		WorkFlowModel flowModel = new WorkFlowModel();
-		flowModel.setBusyTypeId(0);
-		flowModel.setDescription("借款审批");
-		flowModel.setName("借款审批");
+		flowModel.setBusyTypeId(2);
+		flowModel.setDescription("提现审批");
+		flowModel.setName("提现审批");
 		flowModel.setModelText("");
 		flowModel.setStatus(0);
 		workFlowModelService.insertWorkFlowModel(flowModel);
