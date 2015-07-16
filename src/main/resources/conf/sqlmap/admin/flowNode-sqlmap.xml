@@ -22,7 +22,7 @@
   
   <select id="findFlowNodeByModelId" parameterType="java.lang.Integer" resultMap="flowNode-resultMap">
   	select
-  			id,jobs_id,model_id,node_type,flow_test
+  			id,jobs_id,model_id,node_type,flow_test ,
   			next_sort,sort,name,description
     from			
   			flow_node
@@ -35,7 +35,7 @@
    <select id="findFlowNodeById" parameterType="java.lang.Integer" resultMap="flowNode-resultMap">
   	select
   			id,jobs_id,model_id,node_type,flow_test
-  			next_sort,sort
+  			next_sort,sort,name,description
   	from			
   			flow_node
   	where

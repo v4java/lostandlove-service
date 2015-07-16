@@ -45,6 +45,7 @@ public class WorkFlowServiceTest  extends TestCase{
 		UserVO userVO = new UserVO();
 		List<Integer> jobsIds = new ArrayList<Integer>();
 		jobsIds.add(1);
+		jobsIds.add(7);
 		userVO.setJobsIds(jobsIds);
 		userVO.setUserCode("vz110");
 		userVO.setUserName("陈海龙");

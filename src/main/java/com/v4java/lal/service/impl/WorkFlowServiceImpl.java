@@ -48,7 +48,6 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 	}
 
 	@Override
-	@Transactional
 	public int doWorkFlow(Integer workFlowId, UserVO userVO,ApproveLog approveLog) throws Exception {
 		WorkFlow workFlow = workFlowDao.findWorkFlowById(workFlowId);
 		List<FlowNode> flowNodes = flowNodeDao.findFlowNodeByModelId(workFlow.getModelId()); 
@@ -103,13 +102,11 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 			}
 		}
 		int n = workFlowDao.updateWorkFlow(workFlow);
-		if (n==1) {
 			approveLog.setUserCode(userVO.getUserCode());
 			approveLog.setUserName(userVO.getUserName());
 			approveLog.setFlowNode(nowFlowNode.getId());
 			approveLog.setWorkFlowId(workFlowId);
 			approveLogDao.insertApproveLog(approveLog);
-		}
 		return n;
 	}
 	
