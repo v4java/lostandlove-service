@@ -13,7 +13,11 @@ public class UserVO implements View{
 
 	private String userCode;
 	
+	private String userName;
+	
 	private List<Integer> jobsIds;
+	
+	
 
 	public String getUserCode() {
 		return userCode;
@@ -29,6 +33,14 @@ public class UserVO implements View{
 
 	public void setJobsIds(List<Integer> jobsIds) {
 		this.jobsIds = jobsIds;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	

@@ -19,7 +19,7 @@ public class ApproveLog  implements Pojo{
 	private Integer status ;//
 	private String description;// varchar(100)  comment '拒绝理由',
 	private String  userCode ;
-	private String  tuserName ;
+	private String  userName ;
 	private Integer flowNode ;//
 	private Timestamp createTime ;//
 	public Integer getId() {
@@ -52,11 +52,12 @@ public class ApproveLog  implements Pojo{
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
 	}
-	public String getTuserName() {
-		return tuserName;
+	
+	public String getUserName() {
+		return userName;
 	}
-	public void setTuserName(String tuserName) {
-		this.tuserName = tuserName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public Integer getFlowNode() {
 		return flowNode;

@@ -74,9 +74,10 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 			
 		}else if (approveLog.getStatus() == FlowConst.AGREE_TRUE) {
 			FlowNode nextFlowNode = null;
+			int nextNodeSort = nowFlowNode.getNextSort();
 			//寻找下一个节点
 			for (FlowNode flowNodetmp : flowNodes) {
-				if (flowNodetmp.getNextSort().compareTo(nowFlowNode.getSort())==0) {
+				if (flowNodetmp.getSort()==nextNodeSort) {
 					nextFlowNode = flowNodetmp;
 					break;
 				}
@@ -103,6 +104,10 @@ public class WorkFlowServiceImpl implements IWorkFlowService{
 		}
 		int n = workFlowDao.updateWorkFlow(workFlow);
 		if (n==1) {
+			approveLog.setUserCode(userVO.getUserCode());
+			approveLog.setUserName(userVO.getUserName());
+			approveLog.setFlowNode(nowFlowNode.getId());
+			approveLog.setWorkFlowId(workFlowId);
 			approveLogDao.insertApproveLog(approveLog);
 		}
 		return n;
