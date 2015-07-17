@@ -1,4 +1,4 @@
-package com.v4java.lal.admin;
+/*package com.v4java.lal.admin;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -85,3 +85,4 @@ public class WorkFlowServiceTest  extends TestCase{
 	}
 	
 }
+*/

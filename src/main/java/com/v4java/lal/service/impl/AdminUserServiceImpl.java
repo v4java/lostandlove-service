@@ -41,11 +41,11 @@ public class AdminUserServiceImpl implements IAdminUserService{
 	}
 	@Override
 	public Integer updateAdminUserStatus(AdminUser adminUser) throws Exception {
-		return null;
+		return adminUserDao.updateAdminUserStatus(adminUser);
 	}
 	@Override
 	public Integer updateAdminUserIsDelete(AdminUser adminUser)throws Exception {
-		return null;
+		return adminUserDao.updateAdminUserIsDelete(adminUser);
 	}
 
 }

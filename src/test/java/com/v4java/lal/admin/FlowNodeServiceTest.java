@@ -1,6 +1,5 @@
-package com.v4java.lal.admin;
+/*package com.v4java.lal.admin;
 
-import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -88,3 +87,4 @@ public class FlowNodeServiceTest extends TestCase{
 	public void findFlowNodeByWorkFlowId() throws Exception{
 	}
 }
+*/

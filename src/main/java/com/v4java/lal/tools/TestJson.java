@@ -1,7 +1,6 @@
 package com.v4java.lal.tools;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 public class TestJson implements Serializable{
 

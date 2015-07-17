@@ -17,7 +17,7 @@
   <!--  管理员表 end-->
   
   <!-- 管理员表view start -->
-    <resultMap id="admin_user_view-resultMap" type="adminUserVO" >
+    <resultMap id="adminUserView-resultMap" type="adminUserVO" >
     <id 	column="id"			 		property="id" 				jdbcType="INTEGER" />
     <result column="admin_role_id" 		property="adminRoleId" 		jdbcType="INTEGER" />
     <result column="admin_role_name" 	property="adminRoleName" 	jdbcType="VARCHAR" />
@@ -62,7 +62,7 @@
   </insert>
   
   
-  <select id="selectAdminUserVOByAccount" parameterType="string" resultMap="admin_user_view-resultMap">
+  <select id="selectAdminUserVOByAccount" parameterType="string" resultMap="adminUserView-resultMap">
 	select 
 		au.`id`, au.`admin_role_id`, au.`account`, au.`password`, au.`status`, 
 		au.`is_delete`, au.`create_time`,ar.`name` as `admin_role_name`
@@ -74,7 +74,7 @@
 		au.account = #{account} 		
    </select>
 
-  <select id="selectAdminUserVO" parameterType="adminUserQuery" resultMap="admin_user_view-resultMap">
+  <select id="selectAdminUserVO" parameterType="adminUserQuery" resultMap="adminUserView-resultMap">
 	select 
 		au.`id`, au.`admin_role_id`, au.`account`, au.`status`, 
 		au.`is_delete`, au.`create_time`,ar.`name` as `admin_role_name`
@@ -93,7 +93,7 @@
 			and au.status = 	#{status}
 		</if> 
 		<if test="isDelete != null ">
-			and au.isDelete = 	#{isDelete}
+			and au.is_delete = 	#{isDelete}
 		</if> 
 		<if test="createTimeStart !=null and createTimeStart != '' ">
 			and au.create_time  >= #{createTimeStart}
@@ -126,7 +126,7 @@
 			and au.status = 	#{status}
 		</if> 
 		<if test="isDelete != null ">
-			and au.isDelete = 	#{isDelete}
+			and au.is_delete = 	#{isDelete}
 		</if>
 		<if test="createTimeStart !=null and createTimeStart != '' ">
 			and au.create_time  >= #{createTimeStart}
@@ -136,5 +136,24 @@
 		</if> 	 	 	
 	</trim>
    </select>
+   
+   <!--  -->
+   <update id="updateAdminUserStatus" parameterType="adminUser">
+   		update 
+   					admin_user
+   		set
+   				status = #{status}
+   		where 
+   				id = #{id}
+   </update>
+   
+      <update id="updateAdminUserIsDelete" parameterType="adminUser">
+   		update 
+   					admin_user
+   		set
+   				is_delete = #{isDelete}
+   		where 
+   				is_delete = #{isDelete}
+   </update>
    
 </mapper>
