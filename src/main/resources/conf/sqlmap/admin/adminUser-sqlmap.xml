@@ -142,7 +142,7 @@
    		update 
    					admin_user
    		set
-   				status = #{status}
+   				status = #{status} , update_time = now()
    		where 
    				id = #{id}
    </update>
@@ -151,9 +151,9 @@
    		update 
    					admin_user
    		set
-   				is_delete = #{isDelete}
+   				is_delete = #{isDelete} , update_time = now()
    		where 
-   				is_delete = #{isDelete}
+   				id = #{id}
    </update>
    
 </mapper>
